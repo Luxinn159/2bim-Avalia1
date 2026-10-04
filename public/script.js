@@ -1,28 +1,33 @@
 // script.js
-// O navegador envia o número para a Pages Function.
-// O SVG é gerado no servidor.
+// O navegador recebe o ID token do Google e o envia
+// para a Pages Function no cabeçalho Authorization.
 
 const formulario = document.getElementById("formulario");
 const campoNumero = document.getElementById("numero");
-
 const area = document.getElementById("desenho");
 const mensagem = document.getElementById("mensagem");
 const botaoBaixar = document.getElementById("baixar");
-const botaoGoogle = document.getElementById("entrar-google");
+const usuario = document.getElementById("usuario");
 
+let idToken = null;
 let svgAtual = "";
 
-botaoGoogle.addEventListener("click", () => {
-  const retorno = window.location.origin;
+// Chamada pelo Google Identity Services depois do login.
+window.receberLoginGoogle = function (response) {
+  idToken = response.credential;
 
-  window.location.href =
-    "https://oauth-pages-lab.pages.dev/oauth/login/google?returnTo=" +
-    encodeURIComponent(retorno);
-});
+  usuario.textContent = "Login com Google realizado.";
+  mensagem.textContent = "";
+};
 
 formulario.addEventListener("submit", async (evento) => {
   evento.preventDefault();
   mensagem.textContent = "";
+
+  if (!idToken) {
+    mensagem.textContent = "Entre com Google antes de desenhar.";
+    return;
+  }
 
   const numero = Number(campoNumero.value);
 
@@ -34,12 +39,14 @@ formulario.addEventListener("submit", async (evento) => {
   try {
     const resposta = await fetch("/api/desenho", {
       method: "POST",
+
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${idToken}`
       },
+
       body: JSON.stringify({
-        numero,
-        email: "usuario@exemplo.com"
+        numero
       })
     });
 
