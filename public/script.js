@@ -7,7 +7,7 @@ import { gerarDesenho, numeroValido } from "./lib/desenho.js";
 
 const formulario = document.getElementById("formulario");
 const campoNumero = document.getElementById("numero");
-const campoEmail = document.getElementById("email");
+
 const area = document.getElementById("desenho");
 const mensagem = document.getElementById("mensagem");
 const botaoBaixar = document.getElementById("baixar");
@@ -19,18 +19,16 @@ formulario.addEventListener("submit", (evento) => {
   mensagem.textContent = "";
 
   const numero = Number(campoNumero.value);
-  const email = campoEmail.value.trim();
+ 
 
   if (!numeroValido(numero)) {
     mensagem.textContent = "Digite um inteiro entre 1 e 100.";
     return;
   }
-  if (email === "") {
-    mensagem.textContent = "Informe um e-mail.";
-    return;
-  }
+ 
+  
 
-  svgAtual = gerarDesenho(numero, email);
+  svgAtual = gerarDesenho(numero);
   area.innerHTML = svgAtual;
   botaoBaixar.hidden = false;
 });
