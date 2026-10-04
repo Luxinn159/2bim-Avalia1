@@ -11,7 +11,12 @@ const campoNumero = document.getElementById("numero");
 const area = document.getElementById("desenho");
 const mensagem = document.getElementById("mensagem");
 const botaoBaixar = document.getElementById("baixar");
+const botaoGoogle = document.getElementById("entrar-google");
 
+botaoGoogle.addEventListener("click", () => {
+  window.location.href =
+    "https://oauth-pages-lab.pages.dev/oauth/login/google";
+});
 let svgAtual = "";
 
 formulario.addEventListener("submit", (evento) => {
