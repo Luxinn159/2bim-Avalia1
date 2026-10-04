@@ -14,8 +14,11 @@ const botaoBaixar = document.getElementById("baixar");
 const botaoGoogle = document.getElementById("entrar-google");
 
 botaoGoogle.addEventListener("click", () => {
+  const retorno = window.location.origin;
+
   window.location.href =
-    "https://oauth-pages-lab.pages.dev/oauth/login/google";
+    "https://oauth-pages-lab.pages.dev/oauth/login/google?returnTo=" +
+    encodeURIComponent(retorno);
 });
 let svgAtual = "";
 
