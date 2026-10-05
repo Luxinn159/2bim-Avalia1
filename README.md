@@ -22,6 +22,6 @@ Framework preset: `None`. Build command: vazio. Build output directory: `public`
 
 ## Identificação (preencha após o fork)
 
-Nome: 
-RA: 
-URL: https://
+Nome: Guilherme Henrique Colis
+RA: 2026109081
+URL: https://2bim-avalia1-jns.pages.dev
